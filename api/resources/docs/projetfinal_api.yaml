@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API de gestion des poutines
+  description: API de gestion des poutines dans le cadre d'un projet de services web.
+
+servers:
+  - url: http://poutines_api.loc
+paths:
+  /:
+    get:
+      tags:
+        - Général
+      summary: Message de bienvenue
+      responses:
+        '200':
+          description: Un petit message de bienvenue
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Services Web - Gestion des poutines'
+
+  /cle:
+    get:
+      tags:
+        - Clé
+      summary: Générer une nouvelle clé d'API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  format: Text
+                mot_de_passe:
+                  type: string
+                  format: password
+              required:
+                - code
+                - mot_de_passe
+            example:
+              code: banane123
+              mot_de_passe: 123456
+      responses:
+        '200':
+          description: Clé d'API générée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cle:
+                    type: string
+                example:
+                  cle: a1b2c3d4e5f6g7h8i9j0
+
+  /poutine:
+    get:
+      tags:
+        - Poutine
+      summary: Affiche la liste de toutes les poutines.
+      responses:
+        '200':
+          description: Un tableau de toutes les poutines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nom:
+                      type: string
+                    description:
+                      type: string
+                example:
+                  - id: 1
+                    nom: Poutine classique
+                    description: Frites, fromage en grains et sauce brune
+                  - id: 2
+                    nom: Poutine italienne
+                    description: Frites, fromage en grains et sauce tomate
+
+
+    post:
+      tags:
+        - Poutine
+      summary: Ajouter une nouvelle poutine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                description:
+                  type: String
+              required:
+                - nom
+                - description
+            example:
+              nom: La Classique
+              description: Frites, Fromage, Sauce
+      responses:
+        '200':
+          description: Poutine ajoutée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nom:
+                    type: string
+                  ingredients:
+                    type: array
+                    items:
+                      type: string
+                example:
+                  id: 1
+                  nom: La Classique
+                  description: Frites, Fromage, Sauce
+
+  /poutine/{id}:
+    put:
+      tags:
+        - Poutine
+      summary: Mettre à jour une poutine
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: L'ID de la poutine à modifier
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nom:
+                  type: string
+                description:
+                  type: string
+              required:
+                - nom
+                - description
+            example:
+              nom: Poutine végétarienne
+              description: Frites, fromage en grains et sauce brune végétarienne
+      responses:
+        '200':
+          description: La poutine a été mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  poutine:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nom:
+                        type: string
+                      description:
+                        type: string
+                example:
+                  poutine:
+                    id: 1
+                    nom: Poutine végétarienne
+                    description: Frites, fromage en grains et sauce brune végétarienne
+        '201':
+          description: La poutine a été créée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  poutine:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      nom:
+                        type: string
+                      description:
+                        type: string
+                example:
+                  poutine:
+                    id: 3
+                    nom: Poutine végétarienne
+                    description: Frites, fromage en grains et sauce brune végétarienne
+
+    delete:
+      tags:
+        - Poutine
+      summary: Supprimer une poutine par son identifiant
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Identifiant de la poutine à supprimer
+      responses:
+        '200':
+          description: Poutine supprimée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: Poutine supprimée avec succès
+        '404':
+          description: Poutine introuvable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: Poutine non trouvée
