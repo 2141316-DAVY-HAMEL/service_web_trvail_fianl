@@ -1,0 +1,25 @@
+.PoutinesTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .PoutinesTable thead th {
+    background-color: #1c4d6f;
+    color: white;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  .PoutinesTable tbody tr:nth-child(odd) {
+    background-color: #3f3f3f;
+  }
+  
+  .PoutinesTable tbody tr:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .PoutinesTable tbody td {
+    padding: 10px;
+  }
+  
