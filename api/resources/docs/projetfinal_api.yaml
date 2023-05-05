@@ -66,6 +66,8 @@ paths:
       tags:
         - Poutine
       summary: Affiche la liste de toutes les poutines.
+      security:
+        - ApiKeyAuth: [ ]
       responses:
         '200':
           description: Un tableau de toutes les poutines
@@ -95,6 +97,8 @@ paths:
       tags:
         - Poutine
       summary: Ajouter une nouvelle poutine
+      security:
+        - ApiKeyAuth: [ ]
       requestBody:
         content:
           application/json:
@@ -137,6 +141,8 @@ paths:
       tags:
         - Poutine
       summary: Mettre à jour une poutine
+      security:
+        - ApiKeyAuth: [ ]
       parameters:
         - in: path
           name: id
@@ -163,6 +169,8 @@ paths:
       responses:
         '200':
           description: La poutine a été mise à jour avec succès
+          security:
+            - ApiKeyAuth: [ ]
           content:
             application/json:
               schema:
@@ -208,6 +216,8 @@ paths:
       tags:
         - Poutine
       summary: Supprimer une poutine par son identifiant
+      security:
+        - ApiKeyAuth: [ ]
       parameters:
         - in: path
           name: id
@@ -238,3 +248,10 @@ paths:
                     type: string
                 example:
                   message: Poutine non trouvée
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
