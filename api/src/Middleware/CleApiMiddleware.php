@@ -7,7 +7,7 @@ use App\ModelUsager\Usager;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Response;
 
-class ApiKeyMiddleware
+class CleApiMiddleware
 {
 	private $usager;
 

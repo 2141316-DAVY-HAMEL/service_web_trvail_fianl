@@ -19,13 +19,14 @@ const ApiCleGen = () => {
     axios.get('http://127.0.0.1/sevice_web/projetfinal/cle?nouvelle=true', {
       
     headers: {
-      Authorization : 'Bearer ' + base64Credentials
+      Authorization :  base64Credentials
     }}
     ).then((response) => {
-      setApiKey(response.data.api_key);
+      setApiKey(response.data.cle_api);
+      console.error(response.data.cle_api);
     }).catch((error) => {
       console.error('Erreur lors de la génération de la clé API:', error);
-      console.error(base64Credentials);
+      //console.error(base64Credentials);
       alert('Erreur lors de la génération de la clé API. Veuillez réessayer.');
     });
   };

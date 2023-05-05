@@ -7,7 +7,7 @@ use App\Action\Poutine\PoutineCreateAction;
 use App\Action\Poutine\PoutineDeleteAction;
 use App\Action\Poutine\PoutineUpdateAction;
 use App\Action\Poutine\PoutineViewAction;
-use App\Middleware\ApiKeyMiddleware;
+use App\Middleware\CleApiMiddleware;
 use Slim\App;
 
 header("Access-Control-Allow-Origin: *");
@@ -25,10 +25,10 @@ return function (App $app) {
 	$app->get('/cle', CleApiAction::class);
 
 	// Poutine
-	$app->get('/poutine', PoutineViewAction::class)->add( ApiKeyMiddleware::class);
-	$app->post('/poutine', PoutineCreateAction::class)->add( ApiKeyMiddleware::class);
-	$app->put('/poutine/{id}', PoutineUpdateAction::class)->add( ApiKeyMiddleware::class);
-	$app->delete('/poutine/{id}', PoutineDeleteAction::class)->add( ApiKeyMiddleware::class);
+	$app->get('/poutine', PoutineViewAction::class)->add( CleApiMiddleware::class);
+	$app->post('/poutine', PoutineCreateAction::class)->add( CleApiMiddleware::class);
+	$app->put('/poutine/{id}', PoutineUpdateAction::class)->add( CleApiMiddleware::class);
+	$app->delete('/poutine/{id}', PoutineDeleteAction::class)->add( CleApiMiddleware::class);
 
 };
 
